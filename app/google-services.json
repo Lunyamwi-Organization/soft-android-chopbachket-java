@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "739329014628",
+    "firebase_url": "https://chopbachket.firebaseio.com",
+    "project_id": "chopbachket",
+    "storage_bucket": "chopbachket.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:739329014628:android:a8ba69334ba1c4b8099871",
+        "android_client_info": {
+          "package_name": "com.example.chopbachktet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "739329014628-i9tei1n3cchpplh1mfh0t6ooufpa1lif.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.chopbachktet",
+            "certificate_hash": "1444fc299e15a4d7604713dbee6339c4e996836c"
+          }
+        },
+        {
+          "client_id": "739329014628-jua4ifcsp4j5leck0ro57vo317m1m9g9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArORc7hfEk8ngtsmdWlcn-PAs7ERzLP9c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "739329014628-jua4ifcsp4j5leck0ro57vo317m1m9g9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
