@@ -43,7 +43,7 @@ public class HomActivity extends AppCompatActivity implements NavigationView.OnN
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hom);
         FirebaseDatabase database=FirebaseDatabase.getInstance();
-        ProductsRef = database.getReference().child("Products/Apr/14");
+        ProductsRef = database.getReference().child("Products");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Home");
