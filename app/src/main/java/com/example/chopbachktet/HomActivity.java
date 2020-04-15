@@ -74,7 +74,7 @@ public class HomActivity extends AppCompatActivity implements NavigationView.OnN
         CircleImageView profileImageView = headerView.findViewById(R.id.user_profile_image);
 
         userNameTextView.setText(Prevalent.currentOnlineUser.getName());
-        //Picasso.get().load(Prevalent.currentOnlineUser.getImage()).placeholder(R.drawable.profile).into(profileImageView);
+        Picasso.get().load(Prevalent.currentOnlineUser.getImage()).placeholder(R.drawable.profile).into(profileImageView);
         recyclerView = findViewById(R.id.recycler_menu);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -170,8 +170,8 @@ public class HomActivity extends AppCompatActivity implements NavigationView.OnN
         }
         else if (id == R.id.nav_settings)
         {
-           // Intent intent = new Intent(HomActivity.this, SettinsActivity.class);
-          //  startActivity(intent);
+            Intent intent = new Intent(HomActivity.this, SettingsActivity.class);
+            startActivity(intent);
         }
         else if (id == R.id.nav_logout)
         {
