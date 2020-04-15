@@ -28,7 +28,6 @@ import java.util.HashMap;
 public class SignUpActivity extends AppCompatActivity {
     private Button CreateAccountButton;
     private EditText InputName, InputPhoneNumber, InputPassword;
-    private ProgressDialog loadingBar;
 
 
     @Override
@@ -42,7 +41,7 @@ public class SignUpActivity extends AppCompatActivity {
         InputName = (EditText) findViewById(R.id.register_username_input);
         InputPassword = (EditText) findViewById(R.id.register_password_input);
         InputPhoneNumber = (EditText) findViewById(R.id.register_phone_number_input);
-        loadingBar = new ProgressDialog(this);
+
 
 
         CreateAccountButton.setOnClickListener(new View.OnClickListener() {
@@ -76,11 +75,6 @@ public class SignUpActivity extends AppCompatActivity {
         }
         else
         {
-            /*loadingBar.setTitle("Create Account");
-            loadingBar.setMessage("Please wait, while we are checking the credentials.");
-            loadingBar.setCanceledOnTouchOutside(false);
-            loadingBar.show();*/
-
             ValidatephoneNumber(name, phone, password);
         }
     }
@@ -89,6 +83,12 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void ValidatephoneNumber(final String name, final String phone, final String password)
     {
+        final ProgressDialog loadingBar =new ProgressDialog(this);;
+        loadingBar.setTitle("Create Account");
+        loadingBar.setMessage("Please wait, while we create your account.");
+        loadingBar.setCanceledOnTouchOutside(false);
+        loadingBar.show();
+
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
 

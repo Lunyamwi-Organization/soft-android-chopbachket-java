@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -38,7 +39,7 @@ public class AdminAddProductActivity extends AppCompatActivity {
     private String productRandomKey, downloadImageUrl;
     private StorageReference ProductImagesRef;
     private DatabaseReference ProductsRef;
-    private ProgressDialog loadingBar;
+   // private ProgressDialog loadingBar =new ProgressDialog(this);
 
     private static final int GalleryPick = 1;
     private ImageView InputProductImage;
@@ -122,11 +123,7 @@ public class AdminAddProductActivity extends AppCompatActivity {
 
     private void StoreProductInformation()
     {
-        /*loadingBar.setTitle("Adding Product...");
-        loadingBar.setMessage("Dear Admin, please wait while we add the new product...");
-        loadingBar.setCanceledOnTouchOutside(false);
-        loadingBar.show();*/
-
+        final ProgressDialog loadingBar = new ProgressDialog(this);
         Calendar calendar = Calendar.getInstance();
 
         SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
@@ -149,6 +146,13 @@ public class AdminAddProductActivity extends AppCompatActivity {
                 String message = e.toString();
                 Toast.makeText(AdminAddProductActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
                 loadingBar.dismiss();
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+                        .getTotalByteCount());
+                loadingBar.setMessage("Uploaded "+(int)progress+"%");
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
