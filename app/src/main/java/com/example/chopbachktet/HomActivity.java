@@ -104,12 +104,22 @@ public class HomActivity extends AppCompatActivity implements NavigationView.OnN
                     }
                     @Override
                     //display the views
-                    protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull Products model)
+                    protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull final Products model)
                     {
                         holder.txtProductName.setText(model.getPname());
                         holder.txtProductDescription.setText(model.getDescription());
                         holder.txtProductPrice.setText("Price = " + model.getPrice() + "KES");
                         Picasso.get().load(model.getImage()).into(holder.imageView);
+                   //need to set a listener on the specific product that is clicked
+                     holder.itemView.setOnClickListener(new View.OnClickListener() {
+                         @Override
+                         public void onClick(View v) {
+                             Intent intent=new Intent(HomActivity.this,ProductDetailsActivity.class);
+                             intent.putExtra("pid",model.getPid());// we shall need this product id in our product details activity, we shall create a variable there
+                             startActivity(intent);
+                         }
+                     });
+
                     }
 
                 };
