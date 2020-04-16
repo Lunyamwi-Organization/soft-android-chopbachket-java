@@ -34,7 +34,7 @@ public class CartActivity extends AppCompatActivity {
     private Button NextProcessBtn;
     private TextView txtTotalAmount, txtMsg1;
 
-    private int overTotalPrice = 0;
+    private int overallTotalPrice = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,21 @@ public class CartActivity extends AppCompatActivity {
 
         NextProcessBtn = (Button) findViewById(R.id.next_btn);
         txtTotalAmount = (TextView) findViewById(R.id.total_price);
+        //to display the total price of items,once the user is done
+        NextProcessBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                //display the total amount here,but for the person to check the price each time they launch
+                //the cart activity, they can place this line of code in the onCreate or in the onStart methods
+                txtTotalAmount.setText("Total Price = KES" + String.valueOf(overallTotalPrice));
+
+                Intent intent = new Intent(CartActivity.this, ConfirmFinalOrderActivity.class);
+                intent.putExtra("Total Price", String.valueOf(overallTotalPrice));
+                startActivity(intent);
+                finish();
+            }
+        });
 
     }
 
@@ -78,6 +93,10 @@ public class CartActivity extends AppCompatActivity {
                 holder.txtProductQuantity.setText("Quantity = " + model.getQuantity());
                 holder.txtProductPrice.setText("Price " + model.getPrice() + "KES");
                 holder.txtProductName.setText(model.getPname());
+
+                int oneTypeProductTPrice = ((Integer.valueOf(model.getPrice()))) * Integer.valueOf(model.getQuantity());
+                overallTotalPrice +=oneTypeProductTPrice;
+
                 //allow user to edit their cart by setting on click listener
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
