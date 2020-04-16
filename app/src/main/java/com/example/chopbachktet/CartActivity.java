@@ -23,8 +23,11 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class CartActivity extends AppCompatActivity {
 
@@ -46,12 +49,12 @@ public class CartActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         NextProcessBtn = (Button) findViewById(R.id.next_btn);
+        txtMsg1 = (TextView) findViewById(R.id.msg1);
         txtTotalAmount = (TextView) findViewById(R.id.total_price);
         //to display the total price of items,once the user is done
         NextProcessBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 //display the total amount here,but for the person to check the price each time they launch
                 //the cart activity, they can place this line of code in the onCreate or in the onStart methods
                 txtTotalAmount.setText("Total Price = KES" + String.valueOf(overallTotalPrice));
@@ -69,6 +72,8 @@ public class CartActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        CheckOrderState();
+
 
         final DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference().child("Cart List");
         FirebaseRecyclerOptions<Cart> options =
@@ -95,7 +100,7 @@ public class CartActivity extends AppCompatActivity {
                 holder.txtProductName.setText(model.getPname());
 
                 int oneTypeProductTPrice = ((Integer.valueOf(model.getPrice()))) * Integer.valueOf(model.getQuantity());
-                overallTotalPrice +=oneTypeProductTPrice;
+                overallTotalPrice += oneTypeProductTPrice;
 
                 //allow user to edit their cart by setting on click listener
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -113,14 +118,12 @@ public class CartActivity extends AppCompatActivity {
                         builder.setItems(options, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                if (which == 0)
-                                {
+                                if (which == 0) {
                                     Intent intent = new Intent(CartActivity.this, ProductDetailsActivity.class);
                                     intent.putExtra("pid", model.getPid());
                                     startActivity(intent);
                                 }
-                                if(which == 1)
-                                {
+                                if (which == 1) {
                                     cartListRef.child("User View")
                                             .child(Prevalent.currentOnlineUser.getPhone())
                                             .child("Products")
@@ -128,10 +131,8 @@ public class CartActivity extends AppCompatActivity {
                                             .removeValue()
                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
-                                                public void onComplete(@NonNull Task<Void> task)
-                                                {
-                                                    if(task.isSuccessful())
-                                                    {
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
                                                         Toast.makeText(CartActivity.this, "Item removed successfully.", Toast.LENGTH_SHORT).show();
 
                                                         Intent intent = new Intent(CartActivity.this, HomActivity.class);
@@ -150,5 +151,50 @@ public class CartActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         adapter.startListening();
     }
+    private void CheckOrderState()
+    {
+
+        DatabaseReference ordersRef;
+        ordersRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(Prevalent.currentOnlineUser.getPhone());
+        ordersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+             if(dataSnapshot.exists())
+             {
+
+                 String shippingState = dataSnapshot.child("state").getValue().toString();
+                 String userName = dataSnapshot.child("name").getValue().toString();
+                 if(shippingState.equals("shipped"))
+                 {
+                     txtTotalAmount.setText("Dear " + userName + "\n order is shipped successfully.");
+                     recyclerView.setVisibility(View.GONE);
+                     //set the txt visibility
+                     txtMsg1.setVisibility(View.VISIBLE);
+                     txtMsg1.setText("Congratulations, your final order is on its way. Soon you will received your order at your door step.");
+                     NextProcessBtn.setVisibility(View.GONE);
+
+                     Toast.makeText(CartActivity.this, "you can purchase more products, once you receive your first final order.", Toast.LENGTH_SHORT).show();
+                 }
+                 else if(shippingState.equals("not shipped"))
+                 {
+
+                     txtTotalAmount.setText("Shipping State = Not Shipped");
+                     recyclerView.setVisibility(View.GONE);
+
+                     txtMsg1.setVisibility(View.VISIBLE);
+                     NextProcessBtn.setVisibility(View.GONE);
+
+                     Toast.makeText(CartActivity.this, "you can purchase more products, once you received your first final order.", Toast.LENGTH_SHORT).show();
+                 }
+             }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 }
+
 

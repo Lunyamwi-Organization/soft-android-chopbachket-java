@@ -49,14 +49,14 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         //get the product details of the product that has been clicked
         getProductDetails(productID);
-        //add a listener to the add to cart button
+        //add a listener to the add to cart button to validate whwether orders have been shipped or just placed
         addToCartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
                 if (state.equals("Order Placed") || state.equals("Order Shipped"))
                 {
-                    Toast.makeText(ProductDetailsActivity.this, "you can add purchase more products, once your order is shipped or confirmed.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ProductDetailsActivity.this, "you can purchase more products, once your order is shipped or confirmed.", Toast.LENGTH_LONG).show();
                 }
                 else
                 {
@@ -64,6 +64,12 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        CheckOrderState();
     }
 
     private void addingToCartList() {
@@ -141,6 +147,36 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     productPrice.setText(products.getPrice());
                     productDescription.setText(products.getDescription());
                     Picasso.get().load(products.getImage()).into(productImage);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+    private void CheckOrderState()
+    {
+        DatabaseReference ordersRef;
+        ordersRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(Prevalent.currentOnlineUser.getPhone());
+
+        ordersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                if (dataSnapshot.exists())
+                {
+                    String shippingState = dataSnapshot.child("state").getValue().toString();
+
+                    if (shippingState.equals("shipped"))
+                    {
+                        state = "Order Shipped";
+                    }
+                    else if(shippingState.equals("not shipped"))
+                    {
+                        state = "Order Placed";
+                    }
                 }
             }
 
