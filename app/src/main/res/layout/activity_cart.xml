@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimaryDark"
-        android:text="Confirm Purchase"
+        android:text="NEXT"
         android:textColor="@android:color/white"
         android:textSize="20dp"
         />

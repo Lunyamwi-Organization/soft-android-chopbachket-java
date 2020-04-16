@@ -78,6 +78,54 @@ public class CartActivity extends AppCompatActivity {
                 holder.txtProductQuantity.setText("Quantity = " + model.getQuantity());
                 holder.txtProductPrice.setText("Price " + model.getPrice() + "KES");
                 holder.txtProductName.setText(model.getPname());
+                //allow user to edit their cart by setting on click listener
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //for the dialog box,these options are for the user options
+                        CharSequence options[] = new CharSequence[]
+                                {
+                                        "Edit",
+                                        "Remove"
+                                };
+                        AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
+                        builder.setTitle("Cart Options:");
+                        //set the two options on an on click listener
+                        builder.setItems(options, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (which == 0)
+                                {
+                                    Intent intent = new Intent(CartActivity.this, ProductDetailsActivity.class);
+                                    intent.putExtra("pid", model.getPid());
+                                    startActivity(intent);
+                                }
+                                if(which == 1)
+                                {
+                                    cartListRef.child("User View")
+                                            .child(Prevalent.currentOnlineUser.getPhone())
+                                            .child("Products")
+                                            .child(model.getPid())
+                                            .removeValue()
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task)
+                                                {
+                                                    if(task.isSuccessful())
+                                                    {
+                                                        Toast.makeText(CartActivity.this, "Item removed successfully.", Toast.LENGTH_SHORT).show();
+
+                                                        Intent intent = new Intent(CartActivity.this, HomActivity.class);
+                                                        startActivity(intent);
+                                                    }
+                                                }
+                                            });
+                                }
+                            }
+                        });
+                        builder.show();
+                    }
+                });
             }
         };
         recyclerView.setAdapter(adapter);
