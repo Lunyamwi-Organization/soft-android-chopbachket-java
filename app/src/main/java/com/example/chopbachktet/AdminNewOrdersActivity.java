@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,8 @@ public class AdminNewOrdersActivity extends AppCompatActivity {
 
     private RecyclerView ordersList;
     private DatabaseReference ordersRef;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +50,27 @@ public class AdminNewOrdersActivity extends AppCompatActivity {
         FirebaseRecyclerAdapter<AdminOrders,AdminOrdersViewHolder> adapter =
                 new FirebaseRecyclerAdapter<AdminOrders, AdminOrdersViewHolder>(options) {
                     @Override
-                    protected void onBindViewHolder(@NonNull AdminOrdersViewHolder holder, int position, @NonNull AdminOrders model)
+                    protected void onBindViewHolder(@NonNull AdminOrdersViewHolder holder, final int position, @NonNull final AdminOrders model)
                     {
                         holder.userName.setText("Name:" + model.getName());
                         holder.userPhoneNumber.setText("Phone: " + model.getPhone());
                         holder.userTotalPrice.setText("Total Amount =  KES" + model.getTotalAmount());
                         holder.userDateTime.setText("Order at: " + model.getDate() + "  " + model.getTime());
                         holder.userShippingAddress.setText("Shipping Address: " + model.getAddress() + ", " + model.getCity());
+
+                        holder.ShowOrdersBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                //we cannot the phone number directly, the admin gets it from the item that was clicked by the user
+                                String uID = getRef(position).getKey();
+
+                                Intent intent = new Intent(AdminNewOrdersActivity.this, AdminViewOrderedProductsActivity.class);
+                                intent.putExtra("uid", uID);
+                                startActivity(intent);
+                            }
+                        });
+
                     }
 
                     @NonNull
