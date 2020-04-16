@@ -111,7 +111,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                                            {
                                                Toast.makeText(ProductDetailsActivity.this, "Added to Cart List.", Toast.LENGTH_SHORT).show();
 
-                                               Intent intent = new Intent(ProductDetailsActivity.this, HomActivity.class);
+                                               Intent intent = new Intent(ProductDetailsActivity.this, CartActivity.class);
                                                startActivity(intent);
                                            }
 

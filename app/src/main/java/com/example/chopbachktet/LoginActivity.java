@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
         else
         {
             loadingBar.setTitle("Login Account");
-            loadingBar.setMessage("Please wait, while we are checking the credentials.");
+            loadingBar.setMessage("Please wait, while we verify your credentials.");
             loadingBar.setCanceledOnTouchOutside(false);
             loadingBar.show();
 
@@ -142,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
                         {
                             if (parentDbName.equals("Admins"))
                             {
-                                Toast.makeText(LoginActivity.this, "Welcome Admin, you are logged in Successfully...", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Welcome Admin, tap any icon to add products", Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
 
                                 Intent intent = new Intent(LoginActivity.this, AdminCategoryActivity.class);
@@ -150,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
                             else if (parentDbName.equals("Users"))
                             {
-                                Toast.makeText(LoginActivity.this, "logged in Successfully...", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Logged in Successfully...", Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
 
                                 Intent intent = new Intent(LoginActivity.this, HomActivity.class);

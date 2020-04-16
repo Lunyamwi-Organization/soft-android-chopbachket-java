@@ -123,7 +123,7 @@ public class AdminAddProductActivity extends AppCompatActivity {
 
     private void StoreProductInformation()
     {
-        final ProgressDialog loadingBar = new ProgressDialog(this);
+        final ProgressDialog loadingBar = new ProgressDialog(this);//display the progress of the upload
         Calendar calendar = Calendar.getInstance();
 
         SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
@@ -152,7 +152,10 @@ public class AdminAddProductActivity extends AppCompatActivity {
             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                 double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
                         .getTotalByteCount());
+                loadingBar.setTitle("Uploading Product");
                 loadingBar.setMessage("Uploaded "+(int)progress+"%");
+                loadingBar.setCanceledOnTouchOutside(false);
+                loadingBar.show();
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
