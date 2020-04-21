@@ -38,29 +38,46 @@ public class HomActivity extends AppCompatActivity implements NavigationView.OnN
     private  DatabaseReference ProductsRef;
     private RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
+    //help diffrerentiate between our users
+    private  String type ="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hom);
+
+        //this is due to crashes if it is the normal user as the
+        //app would want to load the old person whose ID was saved hence we need to check all intents without assuming
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if (bundle != null)//this means we receive intent only when we are coming from admin activity
+        {
+            type = getIntent().getExtras().get("Admin").toString();
+        }
+
+
         FirebaseDatabase database=FirebaseDatabase.getInstance();
         ProductsRef = database.getReference().child("Products");
+
+        Paper.init(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Home");
         setSupportActionBar(toolbar);
 
-        Paper.init(this);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        //Do not allow the admin to access the drawer icons
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
-               Intent intent=new Intent(HomActivity.this,CartActivity.class);
-               startActivity(intent);
+                if (!type.equals("Admin"))
+                {
+                    Intent intent = new Intent(HomActivity.this, CartActivity.class);
+                    startActivity(intent);
+                }
             }
         });
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -73,9 +90,13 @@ public class HomActivity extends AppCompatActivity implements NavigationView.OnN
         View headerView = navigationView.getHeaderView(0);
         TextView userNameTextView = headerView.findViewById(R.id.user_profile_name);
         CircleImageView profileImageView = headerView.findViewById(R.id.user_profile_image);
+        //distinguish users as this is the end user otherwise it will crash as the app will not have admin profile pictures etc
+        if (!type.equals("Admin"))
+        {
+            userNameTextView.setText(Prevalent.currentOnlineUser.getName());
+            Picasso.get().load(Prevalent.currentOnlineUser.getImage()).placeholder(R.drawable.profile).into(profileImageView);
+        }
 
-        userNameTextView.setText(Prevalent.currentOnlineUser.getName());
-        Picasso.get().load(Prevalent.currentOnlineUser.getImage()).placeholder(R.drawable.profile).into(profileImageView);
         recyclerView = findViewById(R.id.recycler_menu);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -110,14 +131,26 @@ public class HomActivity extends AppCompatActivity implements NavigationView.OnN
                         holder.txtProductName.setText(model.getPname());
                         holder.txtProductDescription.setText(model.getDescription());
                         holder.txtProductPrice.setText("Price = " + model.getPrice() + "KES");
-                        Picasso.get().load(model.getImage()).into(holder.imageView);
-                   //need to set a listener on the specific product that is clicked
+                       //check whwther the current user is admin and allow them to maintain products
+                        
+
+                        //need to set a listener on the specific product that is clicked
                      holder.itemView.setOnClickListener(new View.OnClickListener() {
                          @Override
-                         public void onClick(View v) {
-                             Intent intent=new Intent(HomActivity.this,ProductDetailsActivity.class);
-                             intent.putExtra("pid",model.getPid());// we shall need this product id in our product details activity, we shall create a variable there
-                             startActivity(intent);
+                         public void onClick(View v)
+                         {
+                             if (type.equals("Admin"))
+                             {
+                                 Intent intent = new Intent(HomActivity.this, AdminMaintainProductsActivity.class);
+                                 intent.putExtra("pid", model.getPid());
+                                 startActivity(intent);
+                             }
+                             else
+                             {
+                                 Intent intent = new Intent(HomActivity.this, ProductDetailsActivity.class);
+                                 intent.putExtra("pid", model.getPid());
+                                 startActivity(intent);
+                             }
                          }
                      });
 
@@ -169,11 +202,20 @@ public class HomActivity extends AppCompatActivity implements NavigationView.OnN
 
         if (id == R.id.nav_cart)
         {
-            Intent intent=new Intent(HomActivity.this,CartActivity.class);
-            startActivity(intent);
+            if (!type.equals("Admin"))
+            {
+                Intent intent=new Intent(HomActivity.this,CartActivity.class);
+                startActivity(intent);
+            }
+
         }
-        else if (id == R.id.nav_orders)
+        else if (id == R.id.nav_search)
         {
+            if (!type.equals("Admin"))
+            {
+                Intent intent=new Intent(HomActivity.this,SearchProductsActivity.class);
+                startActivity(intent);
+            }
 
         }
         else if (id == R.id.nav_categories)
@@ -182,17 +224,24 @@ public class HomActivity extends AppCompatActivity implements NavigationView.OnN
         }
         else if (id == R.id.nav_settings)
         {
-            Intent intent = new Intent(HomActivity.this, SettingsActivity.class);
-            startActivity(intent);
+            if (!type.equals("Admin"))
+            {
+                Intent intent = new Intent(HomActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+
         }
         else if (id == R.id.nav_logout)
         {
-            Paper.book().destroy();
+            if (!type.equals("Admin"))
+            {
+                Paper.book().destroy();
+                Intent intent = new Intent(HomActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
 
-            Intent intent = new Intent(HomActivity.this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

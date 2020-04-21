@@ -1,10 +1,12 @@
 package com.example.chopbachktet;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -70,6 +72,39 @@ public class AdminNewOrdersActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }
                         });
+                        //allow admin to delete shipped orders
+                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view)
+                            {
+                                CharSequence options[] = new CharSequence[]
+                                        {
+                                                "Yes",
+                                                "No"
+                                        };
+
+                                AlertDialog.Builder builder = new AlertDialog.Builder(AdminNewOrdersActivity.this);
+                                builder.setTitle("Have you shipped this ordered products ?");
+
+                                builder.setItems(options, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i)
+                                    {
+                                        if (i == 0)
+                                        {
+                                            String uID = getRef(position).getKey();
+
+                                            RemoverOrder(uID);
+                                        }
+                                        else
+                                        {
+                                            finish();
+                                        }
+                                    }
+                                });
+                                builder.show();
+                            }
+                        });
 
                     }
 
@@ -84,6 +119,8 @@ public class AdminNewOrdersActivity extends AppCompatActivity {
         adapter.startListening();
 
     }
+
+
     //create the static viewholder class required by the adapter
     public static class AdminOrdersViewHolder extends RecyclerView.ViewHolder
     {
@@ -102,6 +139,13 @@ public class AdminNewOrdersActivity extends AppCompatActivity {
             userShippingAddress = itemView.findViewById(R.id.order_address_city);
             ShowOrdersBtn = itemView.findViewById(R.id.show_all_products_btn);
         }
+    }
+
+    //remove the order that has already been shipped
+    //we shall need the database reference which is the oreders ref and then pass the phone number id
+    private void RemoverOrder(String uID)
+    {
+     ordersRef.child(uID).removeValue();
     }
 
 }

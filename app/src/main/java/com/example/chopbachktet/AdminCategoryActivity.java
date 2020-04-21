@@ -30,10 +30,20 @@ public class AdminCategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(AdminCategoryActivity.this, MainActivity.class);
-               // intent.putExtra("Admin", "Admin");
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        maintainProductsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminCategoryActivity.this, HomActivity.class);
+               //to help differentiate between admin and common user
+                intent.putExtra("Admin", "Admin");
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
         });
 
