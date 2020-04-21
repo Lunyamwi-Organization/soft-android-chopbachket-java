@@ -1,4 +1,4 @@
-package com.example.chopbachktet;
+package com.example.chopbachktet.AdminSide;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
+
+import com.example.chopbachktet.HomActivity;
+import com.example.chopbachktet.MainActivity;
+import com.example.chopbachktet.R;
 
 public class AdminCategoryActivity extends AppCompatActivity {
     private ImageView tShirts, sportsTShirts, femaleDresses, sweathers;

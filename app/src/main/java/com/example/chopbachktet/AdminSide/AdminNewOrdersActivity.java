@@ -1,4 +1,4 @@
-package com.example.chopbachktet;
+package com.example.chopbachktet.AdminSide;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.chopbachktet.Model.AdminOrders;
+import com.example.chopbachktet.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;

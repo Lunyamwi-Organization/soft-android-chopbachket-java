@@ -51,7 +51,7 @@
         android:layout_height="130dp"
         android:src="@drawable/profile"
         android:layout_below="@+id/app_bar_settings"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         />
     <TextView
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/profile_image_change_btn"
         android:hint="Phone Number..."
-        android:layout_margin="15dp"
+        android:layout_margin="5dp"
         android:padding="10dp"
         />
     <EditText
@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/settings_phone_number"
         android:hint="Full Name..."
-        android:layout_margin="15dp"
+        android:layout_margin="5dp"
         android:padding="10dp"
         />
 
@@ -92,7 +92,18 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/settings_full_name"
         android:hint="Address..."
-        android:layout_margin="15dp"
+        android:layout_margin="5dp"
+        android:padding="10dp"
+        />
+    <Button
+        android:id="@+id/security_questions_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/settings_address"
+        android:text="Set Security Questions"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:layout_margin="10dp"
         android:padding="10dp"
         />
 
