@@ -1,4 +1,4 @@
-package com.example.chopbachktet;
+package com.example.chopbachktet.Buyer;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.chopbachktet.AdminSide.AdminMaintainProductsActivity;
 import com.example.chopbachktet.Model.Products;
 import com.example.chopbachktet.Prevalent.Prevalent;
+import com.example.chopbachktet.R;
 import com.example.chopbachktet.ViewHolder.ProductViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -213,7 +214,7 @@ public class HomActivity extends AppCompatActivity implements NavigationView.OnN
         {
             if (!type.equals("Admin"))
             {
-                Intent intent=new Intent(HomActivity.this,SearchProductsActivity.class);
+                Intent intent=new Intent(HomActivity.this, SearchProductsActivity.class);
                 startActivity(intent);
             }
 

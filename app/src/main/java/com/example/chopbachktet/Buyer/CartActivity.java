@@ -1,4 +1,4 @@
-package com.example.chopbachktet;
+package com.example.chopbachktet.Buyer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.chopbachktet.Model.Cart;
 import com.example.chopbachktet.Prevalent.Prevalent;
+import com.example.chopbachktet.R;
 import com.example.chopbachktet.ViewHolder.CartViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;

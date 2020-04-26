@@ -1,4 +1,4 @@
-package com.example.chopbachktet;
+package com.example.chopbachktet.Buyer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.chopbachktet.AdminSide.AdminCategoryActivity;
 import com.example.chopbachktet.Model.Users;
 import com.example.chopbachktet.Prevalent.Prevalent;
+import com.example.chopbachktet.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

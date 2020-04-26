@@ -13,24 +13,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ForgetPasswordActivity"></activity>
+        <activity
+            android:name=".Sellers.SellerHomeActivity"
+            android:label="@string/title_activity_seller_home"></activity>
+        <activity android:name=".Sellers.SellerLoginActivity" />
+        <activity android:name=".Sellers.SellerRegistrationActivity" />
+        <activity android:name=".Buyer.ForgetPasswordActivity" />
         <activity android:name=".AdminSide.AdminMaintainProductsActivity" />
-        <activity android:name=".SearchProductsActivity" />
+        <activity android:name=".Buyer.SearchProductsActivity" />
         <activity android:name=".AdminSide.AdminViewOrderedProductsActivity" />
         <activity android:name=".AdminSide.AdminNewOrdersActivity" />
-        <activity android:name=".ConfirmFinalOrderActivity" />
-        <activity android:name=".CartActivity" />
-        <activity android:name=".ProductDetailsActivity" />
-        <activity android:name=".SettingsActivity" />
+        <activity android:name=".Buyer.ConfirmFinalOrderActivity" />
+        <activity android:name=".Buyer.CartActivity" />
+        <activity android:name=".Buyer.ProductDetailsActivity" />
+        <activity android:name=".Buyer.SettingsActivity" />
         <activity
-            android:name=".HomActivity"
+            android:name=".Buyer.HomActivity"
             android:label="@string/title_activity_hom"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AdminSide.AdminAddProductActivity" />
         <activity android:name=".AdminSide.AdminCategoryActivity" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Buyer.SignUpActivity" />
+        <activity android:name=".Buyer.LoginActivity" />
+        <activity android:name=".Buyer.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

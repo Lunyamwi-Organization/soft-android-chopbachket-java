@@ -1,4 +1,4 @@
-package com.example.chopbachktet;
+package com.example.chopbachktet.Buyer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.example.chopbachktet.Model.Products;
 import com.example.chopbachktet.Prevalent.Prevalent;
+import com.example.chopbachktet.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;

@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.chopbachktet.HomActivity;
-import com.example.chopbachktet.MainActivity;
+import com.example.chopbachktet.Buyer.HomActivity;
+import com.example.chopbachktet.Buyer.MainActivity;
 import com.example.chopbachktet.R;
 
 public class AdminCategoryActivity extends AppCompatActivity {

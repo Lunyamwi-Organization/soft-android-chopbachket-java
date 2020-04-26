@@ -1,4 +1,4 @@
-package com.example.chopbachktet;
+package com.example.chopbachktet.Buyer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chopbachktet.Prevalent.Prevalent;
+import com.example.chopbachktet.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

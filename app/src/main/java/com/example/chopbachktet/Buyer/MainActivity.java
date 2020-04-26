@@ -1,4 +1,4 @@
-package com.example.chopbachktet;
+package com.example.chopbachktet.Buyer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,10 +9,16 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chopbachktet.Model.Users;
 import com.example.chopbachktet.Prevalent.Prevalent;
+import com.example.chopbachktet.R;
+import com.example.chopbachktet.Sellers.SellerHomeActivity;
+import com.example.chopbachktet.Sellers.SellerRegistrationActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,6 +29,7 @@ import io.paperdb.Paper;
 
 public class MainActivity extends AppCompatActivity {
    private Button signUpButton,LoginButton;
+   private TextView sellerOptions;
    private ProgressDialog loadingBar;
    private String parentDbName = "Users";//in this case I want the parent node
     @Override
@@ -30,10 +37,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        sellerOptions=(TextView)findViewById(R.id.seller_options);
         signUpButton=(Button) findViewById(R.id.main_join_now_btn);
         LoginButton=(Button) findViewById(R.id.main_login_btn);
         loadingBar = new ProgressDialog(this);
+
         Paper.init(this);
         LoginButton.setOnClickListener(
                 new View.OnClickListener() {
@@ -53,6 +61,15 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+        sellerOptions.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(MainActivity.this, SellerRegistrationActivity.class);
+                        startActivity(intent);
+                    }
+                }
+        );
         String UserPhoneKey = Paper.book().read(Prevalent.UserPhoneKey);
         String UserPasswordKey = Paper.book().read(Prevalent.UserPasswordKey);
 
@@ -67,6 +84,21 @@ public class MainActivity extends AppCompatActivity {
                 loadingBar.setCanceledOnTouchOutside(false);
                 loadingBar.show();
             }
+        }
+    }
+//to ensure that if our seller is already logged in then they should go to the seller home activity
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+        if(firebaseUser!=null)//means user is already logged in
+        {
+           //send user to the SellerHomeActivity
+            Intent intent=new Intent(MainActivity.this, SellerHomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
         }
     }
 

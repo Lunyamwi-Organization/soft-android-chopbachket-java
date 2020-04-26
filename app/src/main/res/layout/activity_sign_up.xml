@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/register"
     android:fitsSystemWindows="true"
-    tools:context=".SignUpActivity">
+    tools:context=".Buyer.SignUpActivity">
 
     <ImageView
         android:id="@+id/register_applogo"

@@ -7,22 +7,22 @@
     android:layout_height="match_parent"
 
     android:background="@drawable/welcome"
-    tools:context=".MainActivity">
+    tools:context=".Buyer.MainActivity">
 
     <ImageView
         android:id="@+id/app_logo"
         android:layout_width="300dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:src="@drawable/applogo" />
 
     <TextView
         android:id="@+id/app_slogan"
-        android:layout_width="248dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="266dp"
+        android:layout_marginTop="150dp"
         android:layout_marginEnd="129dp"
         android:text="Chop Bachket, Saves you time"
         android:textAlignment="center"
@@ -30,16 +30,35 @@
         android:textSize="25sp"
         android:textStyle="bold|italic" />
 
+
+    <Button
+        android:id="@+id/main_join_now_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/main_login_btn"
+        android:layout_marginStart="38dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="34dp"
+        android:background="@drawable/input_design"
+        android:padding="15dp"
+        android:text="Join Now"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
     <Button
         android:id="@+id/main_login_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="11dp"
+        android:layout_marginStart="-14dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginBottom="9dp"
+        android:layout_marginBottom="70dp"
         android:background="@drawable/buttons"
         android:padding="20dp"
         android:text="Already have an Account? Login"
@@ -47,20 +66,19 @@
         android:textColor="@android:color/white"
         android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/main_join_now_btn"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/seller_options"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/main_login_btn"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/input_design"
-        android:padding="15dp"
-        android:text="Join Now"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:textSize="18sp" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="19dp"
+        android:layout_marginBottom="20dp"
+        android:text="Seller Panel"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="25sp"
+        android:textStyle="bold|italic" />
 
 
 </RelativeLayout>
