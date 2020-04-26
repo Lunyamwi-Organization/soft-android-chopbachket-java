@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -69,13 +70,57 @@ private ProgressDialog loadingBar;
 
     private void registerSeller()
     {
-        final String name=nameInput.getText().toString();
-        final String address=addressInput.getText().toString();
-        String password=passwordInput.getText().toString();
-        final String phone=phoneInput.getText().toString();
-        final String email=emailInput.getText().toString();
+        final String name=nameInput.getText().toString().trim();
+        final String address=addressInput.getText().toString().trim();
+        String password=passwordInput.getText().toString().trim();
+        final String phone=phoneInput.getText().toString().trim();
+        final String email=emailInput.getText().toString().trim();
        //validation of input
-        if(!name.equals("")&&!phone.equals("")&&!password.equals("")&&!address.equals("")&&!email.equals(""))
+       if(name.equals(""))
+       {
+           nameInput.setError("name cannot be empty");
+           nameInput.requestFocus();
+           return;
+       }
+        if(phone.equals(""))
+        {
+            phoneInput.setError("phone number cannot be empty");
+            phoneInput.requestFocus();
+            return;
+        }
+        if(address.equals(""))
+        {
+            addressInput.setError("business address cannot be empty");
+            addressInput.requestFocus();
+            return;
+        }
+        if(password.equals(""))
+        {
+            passwordInput.setError("password cannot be empty");
+            passwordInput.requestFocus();
+            return;
+        }
+        if(password.length()<6)
+        {
+            passwordInput.setError("password should have at least 6 characters");
+            passwordInput.requestFocus();
+            return;
+        }
+        if(email.equals(""))
+        {
+            emailInput.setError("email address cannot be empty");
+            emailInput.requestFocus();
+            return;
+        }
+        //validate the email format
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches())
+        {
+            emailInput.setError("invalid email format");
+            emailInput.requestFocus();
+            return;
+        }
+        //proceed to create user once all fields are validated
+        else
         {
             loadingBar.setTitle("Creating Seller Account");
             loadingBar.setMessage(name+",please wait, we set up your account ):");
@@ -149,11 +194,6 @@ private ProgressDialog loadingBar;
                   });
 
         }
-        //
-        else
-            {
-                Toast.makeText(SellerRegistrationActivity.this,"Please Fill all the Fields",Toast.LENGTH_SHORT).show();
-            }
 
     }
 }
