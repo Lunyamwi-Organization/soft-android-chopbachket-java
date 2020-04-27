@@ -13,10 +13,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 public class SellerHomeActivity extends AppCompatActivity {
     private TextView mTextMessage;
@@ -52,7 +48,8 @@ public class SellerHomeActivity extends AppCompatActivity {
                     return true;
 
                 case R.id.navigation_add:
-                    mTextMessage.setText(R.string.title_add);
+                    Intent intentCat=new Intent(SellerHomeActivity.this, SellerProductCategoryActivity.class);
+                    startActivity(intentCat);
                     return true;
 
                 case R.id.navigation_logout:

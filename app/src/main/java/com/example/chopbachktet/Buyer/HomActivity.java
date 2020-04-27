@@ -107,10 +107,10 @@ public class HomActivity extends AppCompatActivity implements NavigationView.OnN
     protected void onStart()
     {
         super.onStart();
-
+       //to display only approved products to the end user then orderbychild,
         FirebaseRecyclerOptions<Products> options =
                 new FirebaseRecyclerOptions.Builder<Products>()
-                        .setQuery(ProductsRef, Products.class)
+                        .setQuery(ProductsRef.orderByChild("productStatus").equalTo("Approved"), Products.class)
                         .build();
 
 //The adapter requires the model class, Products and the views class, the Product viewHolder
@@ -132,6 +132,7 @@ public class HomActivity extends AppCompatActivity implements NavigationView.OnN
                         holder.txtProductName.setText(model.getPname());
                         holder.txtProductDescription.setText(model.getDescription());
                         holder.txtProductPrice.setText("Price = " + model.getPrice() + "KES");
+                        Picasso.get().load(model.getImage()).into(holder.imageView);
                        //check whwther the current user is admin and allow them to maintain products
                         
 

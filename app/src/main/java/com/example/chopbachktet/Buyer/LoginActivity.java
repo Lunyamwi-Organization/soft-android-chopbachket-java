@@ -13,7 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.chopbachktet.AdminSide.AdminCategoryActivity;
+import com.example.chopbachktet.AdminSide.AdminHomeActivity;
+import com.example.chopbachktet.Sellers.SellerProductCategoryActivity;
 import com.example.chopbachktet.Model.Users;
 import com.example.chopbachktet.Prevalent.Prevalent;
 import com.example.chopbachktet.R;
@@ -157,7 +158,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "Welcome Admin, tap any icon to add products", Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
 
-                                Intent intent = new Intent(LoginActivity.this, AdminCategoryActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
                                 startActivity(intent);
                             }
                             else if (parentDbName.equals("Users"))

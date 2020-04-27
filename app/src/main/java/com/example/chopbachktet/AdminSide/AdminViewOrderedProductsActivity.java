@@ -34,7 +34,7 @@ public class AdminViewOrderedProductsActivity extends AppCompatActivity {
         userID = getIntent().getStringExtra("uid");
         //initialize productlist
 
-        productsList = findViewById(R.id.products_list);
+        productsList = findViewById(R.id.admin_ordered_products_list);
         productsList.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         productsList.setLayoutManager(layoutManager);

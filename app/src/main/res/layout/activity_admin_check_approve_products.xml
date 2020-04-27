@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdminSide.AdminViewOrderedProductsActivity">
+    tools:context=".AdminSide.AdminCheckApproveProductsActivity">
     <RelativeLayout
         android:id="@+id/r3"
         android:layout_width="match_parent"
@@ -14,10 +14,9 @@
         android:layout_alignParentTop="true">
 
         <TextView
-            android:id="@+id/admin_approve_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ordered Products"
+            android:text="Approve New Products"
             android:textColor="@android:color/white"
             android:textSize="25dp"
             android:textAlignment="center"
@@ -25,14 +24,12 @@
             />
 
     </RelativeLayout>
-
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/admin_ordered_products_list"
+        android:id="@+id/admin_products_approve"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/r3">
+        android:layout_below="@+id/r3"
+        >
     </androidx.recyclerview.widget.RecyclerView>
-
 
 </RelativeLayout>
