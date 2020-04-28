@@ -4,13 +4,12 @@ import androidx.annotation.Keep;
 
 @Keep
 public class Products {
-    private String description,pname,price,image,category,pid,date,time;
+    private String description,pname,price,image,category,pid,date,time,productStatus;
     public Products()
     {
     }
 
-
-    public Products(String description, String pname, String price, String image, String category, String pid, String date, String time) {
+    public Products(String description, String pname, String price, String image, String category, String pid, String date, String time, String productStatus) {
         this.description = description;
         this.pname = pname;
         this.price = price;
@@ -19,6 +18,7 @@ public class Products {
         this.pid = pid;
         this.date = date;
         this.time = time;
+        this.productStatus = productStatus;
     }
 
     public String getDescription() {
@@ -83,5 +83,13 @@ public class Products {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getProductStatus() {
+        return productStatus;
+    }
+
+    public void setProductStatus(String productStatus) {
+        this.productStatus = productStatus;
     }
 }

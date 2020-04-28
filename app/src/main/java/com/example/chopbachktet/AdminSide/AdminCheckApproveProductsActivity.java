@@ -29,6 +29,8 @@ public class AdminCheckApproveProductsActivity extends AppCompatActivity {
 private RecyclerView recyclerView;
 RecyclerView.LayoutManager layoutManager;
 private DatabaseReference unapprovedProductsRef;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

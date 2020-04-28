@@ -28,6 +28,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -100,7 +101,7 @@ public class HomActivity extends AppCompatActivity implements NavigationView.OnN
 
         recyclerView = findViewById(R.id.recycler_menu);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
+        layoutManager = new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(layoutManager);
     }
     @Override
