@@ -20,4 +20,6 @@
     <string name="title_home">Home</string>
     <string name="title_add">Add</string>
     <string name="title_logout">Logout</string>
+
+    <string name="search_activity_name">Search Products</string>
 </resources>

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import com.example.chopbachktet.R;
 
 public class SellerProductCategoryActivity extends AppCompatActivity {
-    private ImageView tShirts, sportsTShirts, femaleDresses, sweathers;
+    private ImageView tShirts, sportsTShirts, femaleDresses, sweaters;
     private ImageView glasses, hatsCaps, walletsBagsPurses, shoes;
     private ImageView headPhonesHandFree, Laptops, watches, mobilePhones;
 
@@ -22,7 +22,7 @@ public class SellerProductCategoryActivity extends AppCompatActivity {
         tShirts = (ImageView) findViewById(R.id.t_shirts);
         sportsTShirts = (ImageView) findViewById(R.id.sports_t_shirts);
         femaleDresses = (ImageView) findViewById(R.id.female_dresses);
-        sweathers = (ImageView) findViewById(R.id.sweaters);
+        sweaters = (ImageView) findViewById(R.id.sweaters);
 
         glasses = (ImageView) findViewById(R.id.glasses);
         hatsCaps = (ImageView) findViewById(R.id.hats_caps);
@@ -67,7 +67,7 @@ public class SellerProductCategoryActivity extends AppCompatActivity {
         });
 
 
-        sweathers.setOnClickListener(new View.OnClickListener() {
+        sweaters.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {

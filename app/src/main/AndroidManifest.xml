@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -22,7 +23,26 @@
         <activity android:name=".Sellers.SellerRegistrationActivity" />
         <activity android:name=".Buyer.ForgetPasswordActivity" />
         <activity android:name=".AdminSide.AdminMaintainProductsActivity" />
-        <activity android:name=".Buyer.SearchProductsActivity" />
+        <meta-data
+            android:name="android.app.default_searchable"
+            android:value="com.apkgetter.SearchResultsActivity" />
+
+        <activity
+            android:name=".Buyer.SearchProductsActivity"
+            android:label="@string/search_activity_name"
+            android:launchMode="singleTop" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+
         <activity android:name=".AdminSide.AdminViewOrderedProductsActivity" />
         <activity android:name=".AdminSide.AdminNewOrdersActivity" />
         <activity android:name=".Buyer.ConfirmFinalOrderActivity" />
