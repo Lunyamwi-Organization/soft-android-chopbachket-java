@@ -20,6 +20,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
@@ -59,6 +61,8 @@ public class HomActivity extends AppCompatActivity implements NavigationView.OnN
 
         FirebaseDatabase database=FirebaseDatabase.getInstance();
         ProductsRef = database.getReference().child("Products");
+        //enable offline capabilities
+        ProductsRef.keepSynced(true);
 
         Paper.init(this);
 
@@ -128,12 +132,25 @@ public class HomActivity extends AppCompatActivity implements NavigationView.OnN
                     }
                     @Override
                     //display the views
-                    protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull final Products model)
+                    protected void onBindViewHolder(@NonNull final ProductViewHolder holder, int position, @NonNull final Products model)
                     {
                         holder.txtProductName.setText(model.getPname());
                         holder.txtProductDescription.setText(model.getDescription());
                         holder.txtProductPrice.setText("Price = " + model.getPrice() + "KES");
-                        Picasso.get().load(model.getImage()).into(holder.imageView);
+                        Picasso.get().load(model.getImage()).networkPolicy(NetworkPolicy.OFFLINE).into(holder.imageView, new Callback() {
+                                    @Override
+                                    public void onSuccess() {
+                                       //do nothing if it retrieves the image from offline
+                                    }
+
+                                    @Override
+                                    public void onError(Exception e) {
+                                       //if it doesn't retrieve image offline then it should get it online
+                                         Picasso.get().load(model.getImage()).into(holder.imageView);
+                                    }
+                                }
+                        );
+
                        //check whwther the current user is admin and allow them to maintain products
                         
 

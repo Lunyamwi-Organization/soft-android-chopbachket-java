@@ -40,8 +40,10 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-database:6.1.0'
     implementation 'com.google.firebase:firebase-core:17.3.0'
     //picasso for my loading images& android arsenal button for adding
+    //okhttp for offline capabilities of picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
+    implementation 'com.squareup.okhttp3:okhttp:4.6.0'
     //androidx dependecies
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'

@@ -24,6 +24,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
@@ -82,6 +84,7 @@ public class SellerHomeActivity extends AppCompatActivity {
 
 
         allSellerProductsRef= FirebaseDatabase.getInstance().getReference().child("Products");
+        allSellerProductsRef.keepSynced(true);
 
         recyclerView=(RecyclerView)findViewById(R.id.seller_home_recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -103,13 +106,23 @@ public class SellerHomeActivity extends AppCompatActivity {
         FirebaseRecyclerAdapter<Products, SellerItemsViewHolder> adapter=
                 new FirebaseRecyclerAdapter<Products, SellerItemsViewHolder>(options) {
                     @Override
-                    protected void onBindViewHolder(@NonNull SellerItemsViewHolder holder, int position, @NonNull final Products model)
+                    protected void onBindViewHolder(@NonNull final SellerItemsViewHolder holder, int position, @NonNull final Products model)
                     {
                         holder.txtProductName.setText(model.getPname());
                         holder.txtProductDescription.setText(model.getDescription());
                         holder.txtProductStatus.setText("State|"+model.getProductStatus());
                         holder.txtProductPrice.setText("Price = " + model.getPrice() + "KES");
-                        Picasso.get().load(model.getImage()).into(holder.imageView);
+                        Picasso.get().load(model.getImage()).networkPolicy(NetworkPolicy.OFFLINE).into(holder.imageView, new Callback() {
+                            @Override
+                            public void onSuccess() {
+
+                            }
+
+                            @Override
+                            public void onError(Exception e) {
+                            Picasso.get().load(model.getImage()).into(holder.imageView);
+                            }
+                        });
 
 
                         holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -52,14 +52,14 @@ public class CartActivity extends AppCompatActivity {
         NextProcessBtn = (Button) findViewById(R.id.next_btn);
         txtMsg1 = (TextView) findViewById(R.id.msg1);
         txtTotalAmount = (TextView) findViewById(R.id.total_price);
+        //see the overall price of items added so far
+        txtTotalAmount.setText("Total Price = KES" + String.valueOf(overallTotalPrice));
         //to display the total price of items,once the user is done
         NextProcessBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //display the total amount here,but for the person to check the price each time they launch
                 //the cart activity, they can place this line of code in the onCreate or in the onStart methods
-                txtTotalAmount.setText("Total Price = KES" + String.valueOf(overallTotalPrice));
-
                 Intent intent = new Intent(CartActivity.this, ConfirmFinalOrderActivity.class);
                 intent.putExtra("Total Price", String.valueOf(overallTotalPrice));
                 startActivity(intent);
